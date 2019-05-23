@@ -1,6 +1,7 @@
 <template>
-  <div class="OpemSearch">
-    诗歌搜索页
+  <div class="opemSearch">
+		诗歌搜索页
+		<el-button @click="$router.push({name:'opemsFromSearch'})" >搜索结果</el-button>
   </div>
 </template>
 
@@ -8,7 +9,7 @@
 // @ is an alias to /src
 
 export default {
-  name: 'OpemSearch',
+  name: 'opemSearch',
   components: {
   }
 }
