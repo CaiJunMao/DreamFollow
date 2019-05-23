@@ -5,6 +5,7 @@ import Index from './views/Index.vue'
 Vue.use(Router)
 
 export default new Router({
+	mode: 'history',
   routes: [
     {
       path: '/',
@@ -14,7 +15,7 @@ export default new Router({
       children: [
       	{
 		      path: '/Index/Filter',
-		      name: 'Filter',
+		      name: 'filter',
 		      component: () => import('./views/Filter.vue'),
 		    },
        	{
@@ -25,7 +26,7 @@ export default new Router({
 		  ]
     },
     {
-      path: '/OpemsFromFilter',
+      path: '/Index/Filter/result',
       name: 'opemsFromFilter',
        // route level code-splitting
       // this generates a separate chunk (about.[hash].js) for this route
@@ -36,6 +37,14 @@ export default new Router({
       path: '/OpemSearch',
       name: 'opemSearch',
       component: () => import('./views/OpemSearch.vue')
+    },
+     {
+     	//path只是显示在地址栏上的地址，实际路由显示的位置，由router中该路由的位置决定
+     	//这样写可以在地址栏输入/OpemSearch/result访问到OpemsFromSearch，由不需要把OpemsFromSearch作为OpemSearch的子路由
+     	//省去了OpemSearch中内容的隐藏
+      path: '/OpemSearch/result',
+      name: 'opemsFromSearch',
+      component: () => import('./views/OpemsFromSearch.vue')
     },
     {
       path: '/OpemDetail',
@@ -57,6 +66,9 @@ export default new Router({
       name: 'collection',
       component: () => import('./views/Collection.vue')
     },
-    
+    {
+    	path: '*',
+		  redirect: {name: 'index'}
+    }
   ]
 })
