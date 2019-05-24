@@ -27,29 +27,29 @@ export default new Router({
     },
     {
       path: '/Index/Filter/result',
-      name: 'opemsFromFilter',
+      name: 'poemsFromFilter',
        // route level code-splitting
       // this generates a separate chunk (about.[hash].js) for this route
       // which is lazy-loaded when the route is visited.
-      component: () => import(/* webpackChunkName: "about" */ './views/OpemsFromFilter.vue')
+      component: () => import(/* webpackChunkName: "about" */ './views/PoemsFromFilter.vue')
     },
     {
-      path: '/OpemSearch',
-      name: 'opemSearch',
-      component: () => import('./views/OpemSearch.vue')
+      path: '/PoemSearch',
+      name: 'poemSearch',
+      component: () => import('./views/PoemSearch.vue')
     },
      {
      	//path只是显示在地址栏上的地址，实际路由显示的位置，由router中该路由的位置决定
      	//这样写可以在地址栏输入/OpemSearch/result访问到OpemsFromSearch，由不需要把OpemsFromSearch作为OpemSearch的子路由
      	//省去了OpemSearch中内容的隐藏
-      path: '/OpemSearch/result',
-      name: 'opemsFromSearch',
-      component: () => import('./views/OpemsFromSearch.vue')
+      path: '/PoemSearch/result',
+      name: 'poemsFromSearch',
+      component: () => import('./views/PoemsFromSearch.vue')
     },
     {
-      path: '/OpemDetail',
-      name: 'opemDetail',
-      component: () => import('./views/OpemDetail.vue')
+      path: '/PoemDetail',
+      name: 'poemDetail',
+      component: () => import('./views/PoemDetail.vue')
     },
     {
       path: '/Setting',
