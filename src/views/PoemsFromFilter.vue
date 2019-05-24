@@ -1,6 +1,6 @@
 <template>
-  <div class="opemDetail">
-    诗歌详情页
+  <div class="poemsFromFilter">
+    筛选结果页
   </div>
 </template>
 
@@ -8,8 +8,10 @@
 // @ is an alias to /src
 
 export default {
-  name: 'opemDetail',
+  name: 'OpemsFromFilter',
   components: {
+  	
   }
 }
 </script>
+
