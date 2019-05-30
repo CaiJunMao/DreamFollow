@@ -1,6 +1,7 @@
 <template>
   <div class="filter">
     筛选页面
+
     <dl>
     		<dt>朝代</dt>
     		<dd @click="screenDynasty('先秦')">先秦</dd>
@@ -16,6 +17,9 @@
     		<dd @click="screenAuthor('李商隐')">李商隐</dd>
     </dl>
     <el-button @click="$router.push({name:'poemsFromFilter'})" >筛选结果</el-button>
+    <el-button @click="$router.go(-1)" >返回</el-button>
+
+
   </div>
 </template>
 
@@ -23,7 +27,7 @@
 // @ is an alias to /src
 
 export default {
-  name: 'filter',
+  name: 'v-filter',
   components: {
   },
   methods: {
@@ -38,3 +42,9 @@ export default {
   }
 }
 </script>
+<style lang="less" scoped>
+	.filter{
+		/*height: 100%;*/
+		background-color: #428351;
+	}
+</style>
