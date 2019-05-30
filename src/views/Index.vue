@@ -1,12 +1,12 @@
 <template>
   <div class="index">
-    首页
-    <el-button @click="$router.push({name:'filter'})" >筛选</el-button>
-    <el-button @click="$router.push({name:'menu'})">目录</el-button>
-    <el-button @click="$router.push({name:'poemSearch'})">搜索</el-button>
-    <router-view></router-view>
-    <Recommend></Recommend>
-    <PoemAbout :items="poetrys"></PoemAbout>
+    		首页
+    		<el-button @click="$router.push({name:'filter'})" >筛选</el-button>
+	    <el-button @click="showMenu">目录</el-button>
+	    <el-button @click="$router.push({name:'poemSearch'})">搜索</el-button>
+	    <router-view></router-view>
+	    <Recommend></Recommend>
+	    <PoemAbout :items="poetrys"></PoemAbout>
   </div>
 </template>
 
@@ -21,20 +21,27 @@ export default {
   },
   data(){
   	return{
-  		poetrys: null
+  		poetrys: null,
+  		show: null
   	}
   },
-  beforeRouteEnter(to, from, next){
-  	axios
-  		.get("https://api.apiopen.top/getSongPoetry?page=1&count=20")
-  		.then(res => {
-  			next(vm =>{
-  				vm.poetrys = res.data.result.slice(0, 20)
-  			})
-  		})
-  }
+  methods: {
+  	showMenu(){
+//		this.show = !show
+  		this.$router.push({name:'menu'})
+  	}
+  },
+	beforeRouteEnter(to, from, next){
+		axios
+			.get("https://api.apiopen.top/getSongPoetry?page=1&count=20")
+			.then(res => {
+				next(vm =>{
+					vm.poetrys = res.data.result.slice(0, 20)
+				})
+			})
+	}
 }
 </script>
 <style lang="less" scoped >
-	
+
 </style>

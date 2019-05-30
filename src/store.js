@@ -8,13 +8,20 @@ export default new Vuex.Store({
   	title: null,
 	author: null,
 	content: null,
+	dynasty: null
   },
   mutations: {
 	introductionPoem(state, poem){
 		state.title = poem.title
 		state.author = poem.author
 		state.content = poem.content
-	}
+	},
+	introductionDynasty(state, dynasty){
+		state.dynasty = dynasty
+	},
+	introductionAuthor(state, author){
+		state.author = author
+	},
   },
   actions: {
 
