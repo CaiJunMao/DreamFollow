@@ -11,6 +11,7 @@ export default new Router({
       path: '/',
       name: 'index',
       component: Index,
+      meta:{isIndex:true},
       //Filter,menu
       children: [
       	{
@@ -22,6 +23,7 @@ export default new Router({
 		      path: '/Index/Menu',
 		      name: 'menu',
 		      component: () => import('./views/Menu.vue'),
+		      meta:{isIndex:true},
 		    },
 		  ]
     },

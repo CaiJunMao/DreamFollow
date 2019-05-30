@@ -18,7 +18,7 @@ export default {
 </script>
 <style lang="less" scoped>
 	.filter{
-		height: 100%;
+		/*height: 100%;*/
 		background-color: #428351;
 	}
 </style>

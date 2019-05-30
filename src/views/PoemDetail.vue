@@ -40,6 +40,15 @@ export default {
   		}
   		return poemArray
   	},
-  }
+  },
+  methods:{
+  	//添加收藏，传入诗，
+  	addCollection(poem){
+        var poems = []
+        poems.push(poem)
+        localStorage.setItem('poemshelf',JSON.stringify(poems))
+  	}
+  	
+  },
 }
 </script>
