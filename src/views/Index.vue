@@ -1,4 +1,5 @@
 <template>
+
   <div class="index" >
   	<div @click="hide" class = "indexCss" :class="{indexCssForMenu:routerStyle=='menuStyle','indexCssFirst':routerStyle==''}">
   		<TopBar :title=name :menuShow="showMenu"></TopBar>
@@ -20,6 +21,7 @@
 	  	</transition>
 	  </div>
     
+
 
   </div>
 </template>
@@ -204,4 +206,5 @@ created(){
 		transform: scale(0.3, 0.3);
 		opacity: 0;
 	}
+
 </style>
