@@ -8,8 +8,12 @@
 			<div class="author">
 				{{item.authors}}
 			</div>
-			<div class="content">
+			<div class="content" v-if="typeof item.content == 'string'">
 				{{item.content.split("|")[0]}}
+			</div>
+			<div class="content" v-else>
+				{{item.content[0]}}
+				{{item.content[1]}}
 			</div>
 		</div>
 	</div>

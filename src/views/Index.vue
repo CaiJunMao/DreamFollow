@@ -99,6 +99,7 @@ export default {
 	    
 	  }
   },
+
    beforeRouteEnter(to, from, next){
    	axios
    		.get("https://api.apiopen.top/getSongPoetry?page=1&count=20")
