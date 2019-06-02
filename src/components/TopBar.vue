@@ -6,6 +6,7 @@
 		<i class="el-icon-arrow-left" v-else @click="$router.go(-1)"></i>
 		<div class="title" >{{title}}</div>
 		<!--<el-button type="primary" icon="el-icon-edit"></el-button>-->
+		<el-button type="text" @click.stop='filterShow'  v-if="$route.meta.isIndex">筛选</el-button>
 	</div>
 </template>
 
@@ -14,7 +15,8 @@
 		name: 'topBar',
 		props:[
 		    'title',
-			'menuShow'
+			'menuShow',
+			'filterShow'
 		],
 	}
 </script>

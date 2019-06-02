@@ -1,13 +1,18 @@
 <template>
 
   <div class="index" >
-  	<div @click="hide" class = "indexCss" :class="{indexCssForMenu:routerStyle=='menuStyle','indexCssFirst':routerStyle==''}">
-  		<TopBar :title=name :menuShow="showMenu"></TopBar>
-	    <el-button @click.stop="showFilter" >筛选</el-button>
-	
-	    <el-button @click="$router.push({name:'poemSearch'})">搜索</el-button>
-  		<Recommend></Recommend>
-    <PoemAbout :items="poetrys"></PoemAbout>
+  	<div class = "indexCss" :class="{indexCssForMenu:routerStyle=='menuStyle','indexCssFirst':routerStyle==''}">
+  		<TopBar :title=name :menuShow="showMenu" :filterShow="showFilter"></TopBar>
+	    <!--<el-button @click.stop="showFilter" >筛选</el-button>-->
+			<div>
+				<el-button @click="$router.push({name:'poemSearch'})">搜索</el-button>
+	  		<Recommend></Recommend>
+	    	<PoemAbout :items="poetrys"></PoemAbout>
+			</div>
+			<!--从目录返回时，盖在indexCss上面，防止点击到indexCss中子元素，触发其点击事件-->
+	    <div class="mask" v-show="showmask"  @click="hide">
+	    	
+	    </div>
   	</div>
     
     <!--<div :class="{ showMenuCss: menuStyle }">-->
@@ -42,6 +47,7 @@ export default {
   		poetrys: null,
       name:"首页",
       //目录样式，true为出现和false隐藏
+      showmask:false,
       menuStyle:false,
       filterStyle:false,
       routerStyle:'',
@@ -55,6 +61,7 @@ export default {
         //更改目录样式,出现且左浮，index右缩
 //      this.menuStyle = !this.menuStyle
         this.routerStyle='menuStyle'
+        this.showmask =true
 //      this.transitionName = 'slide'
       },
       showFilter(){
@@ -67,9 +74,12 @@ export default {
       },
       hide(){
         console.log("点击隐藏")
+        	console.log(this.$router.from)
         this.$router.push({name:'index'})
         //更改目录样式,出现且左浮，index右缩
         this.menuStyle = !this.menuStyle
+        //遮罩隐藏
+        this.showmask =false
         this.routerStyle=''
 //       this.transitionName = 'slide-right'
       },
@@ -89,6 +99,7 @@ export default {
 	    
 	  }
   },
+
    beforeRouteEnter(to, from, next){
    	axios
    		.get("https://api.apiopen.top/getSongPoetry?page=1&count=20")
@@ -117,13 +128,19 @@ created(){
 		.indexCss{
 			transition: all 1s ease-in; 
 			height: 100%;
+			.mask{
+				position: absolute;
+				height: 100%;
+				width: 100%;
+				top: 0;
+			}
 		}
 		.indexCssFirst{
-			background: blueviolet;
+			/*background: blueviolet;*/
 			height: 100%;
 		}
 		.indexCssForMenu{
-			background: deepskyblue;
+			/*background: deepskyblue;*/
 			height: 100%;
 			width: 100%;
 			position: absolute;
