@@ -89,15 +89,15 @@ export default {
 	    
 	  }
   },
-// beforeRouteEnter(to, from, next){
-// 	axios
-// 		.get("https://api.apiopen.top/getSongPoetry?page=1&count=20")
-// 		.then(res => {
-// 			next(vm =>{
-// 				vm.poetrys = res.data.result.slice(0, 20)
-// 			})
-// 		})
-// }
+   beforeRouteEnter(to, from, next){
+   	axios
+   		.get("https://api.apiopen.top/getSongPoetry?page=1&count=20")
+   		.then(res => {
+   			next(vm =>{
+   				vm.poetrys = res.data.result.slice(0, 20)
+   			})
+   		})
+   },
 created(){
 	//重置子路由遮罩，让其消失，避免首页无法点击
 //	this.routerStyle=''

@@ -73,7 +73,7 @@ export default {
 	}
 @font-face {
 	font-family: 'fly';
-	src: url(font/2.ttf);
+	src: url(font/1.ttf);
 }
 #app {
   font-family: 'Avenir', Helvetica, Arial, sans-serif;
