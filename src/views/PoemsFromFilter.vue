@@ -1,6 +1,6 @@
 <template>
   <div class="poemsFromFilter">
-    筛选结果页
+    <TopBar :title=name ></TopBar>
     <div class="poet" v-if="author">
     		<div class="author">
     			<span>{{authorIntroduce.name}}</span>
@@ -17,17 +17,20 @@
 <script>
 // @ is an alias to /src
 import PoemAbout from '@/components/PoemAbout.vue'
+import TopBar from '@/components/TopBar.vue'
 export default {
   name: 'OpemsFromFilter',
   components: {
-  	PoemAbout
+  	PoemAbout,
+  	TopBar
   },
   data(){
   	return{
   		authorIntroduce: null,
   		poemOfPoet: [],
   		dynastyTang: null,
-  		dynastySong: null
+  		dynastySong: null,
+  		name:'筛选结果'
   	}
   },
   computed: {

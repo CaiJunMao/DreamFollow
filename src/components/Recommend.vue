@@ -1,14 +1,23 @@
 <template>
 	<div class="recommend">
+		<!--背景遮罩-->
+		<div class="mask"></div>
+		<div class="top">
+			<span>随机推荐</span>
+			<i class="el-icon-refresh" @click="exchange"></i>
+		</div>
+		
+		<div class="tags" >
+			<!--<span v-for="(item, index) in tags" :key="index">{{item}}</span>-->
+			<span>{{tags[0]}}</span>
+			
+		</div>
 		<div class="text-box">
 			<span>{{content}}</span>
 		</div>
-		<div class="tags" v-for="(item, index) in tags" :key="index">
-			<span>{{item}}</span>
-		</div>
-		<div class="exchange">
+		<!--<div class="exchange">
 			<a class="btn" @click="exchange">换一句</a>
-		</div>
+		</div>-->
 	</div>
 </template>
 
@@ -42,5 +51,52 @@
 	}
 </script>
 
-<style>
+<style scoped lang="less">
+.recommend{
+	height: 35%;
+	/*background-image: url(../../public/img/recoment.png);
+	background-size:cover;
+	background-repeat:no-repeat;
+	visibility: 0.5;*/
+	position: relative;
+	z-index: 2;
+	.mask{
+		height: 100%;
+		width: 100%;
+		background-image: url(../../public/img/recoment.png);
+		background-size:cover;
+		background-repeat:no-repeat;
+		/*background-color:rgba(255,0,0,0.2);*/
+		opacity: 0.8;
+		position: absolute;
+		top: 0;
+		z-index: -1;
+	}
+	
+	.top{
+		height: 20%;
+		display: flex;
+		justify-content: space-between;
+	}
+	.tags{
+		display: flex;
+		justify-content: space-around;
+		height: 55%;
+		span{
+			display: inline-block;
+			/*height: 25px;*/
+			font-size:35px ;
+			 align-self: center;
+			
+			/*border: dashed 1px;*/
+			/*margin: 5% 2%;*/
+		}
+	}
+	.text-box{
+		height: 20%;
+		padding:5% 0 ;
+		font-size: 20px;
+		line-height: 20px;
+	}
+}
 </style>

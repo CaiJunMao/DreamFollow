@@ -4,9 +4,13 @@
   	<div class = "indexCss" :class="{indexCssForMenu:routerStyle=='menuStyle','indexCssFirst':routerStyle==''}">
   		<TopBar :title=name :menuShow="showMenu" :filterShow="showFilter"></TopBar>
 	    <!--<el-button @click.stop="showFilter" >筛选</el-button>-->
-			<div>
-				<el-button @click="$router.push({name:'poemSearch'})">搜索</el-button>
+			<div class="main">
+				<div class="search" @click="$router.push({name:'poemSearch'})"><i class="el-icon-search"></i>点击进行搜索</div>
+				<!--<el-button @click="$router.push({name:'poemSearch'})">搜索</el-button>-->
 	  		<Recommend></Recommend>
+	  		<div class="">
+	  			
+	  		</div>
 	    	<PoemAbout :items="poetrys"></PoemAbout>
 			</div>
 			<!--从目录返回时，盖在indexCss上面，防止点击到indexCss中子元素，触发其点击事件-->
@@ -121,19 +125,34 @@ created(){
 	.index{
 		height: 100%;
 		position: relative;
-		
+		background-image: url(../../img/QQ20190530-1.jpg);
+		background-size: 100% 100%;
 		.secondRouter{
 			display: flex;
 		}
 		.indexCss{
 			transition: all 1s ease-in; 
 			height: 100%;
-			.mask{
-				position: absolute;
-				height: 100%;
-				width: 100%;
-				top: 0;
+			/*background-image: url(../../img/index.png);*/
+			/*background-size: 100% 100%;*/
+			.main{
+				height:92%;
+				overflow:overlay;
+				
+				.search{
+					display:block;
+					height:30px;
+					line-height: 30px;
+					background-color: #999 0.2;
+				}
 			}
+			.mask{
+					position: absolute;
+					height: 100%;
+					width: 100%;
+					top: 0;
+					z-index: 6;
+				}
 		}
 		.indexCssFirst{
 			/*background: blueviolet;*/
@@ -165,6 +184,7 @@ created(){
 		height: 100%;
 		width: 100%;
 		transform: scale(0.9, 0.9);
+		z-index: 2;
 	}
 	
 	.menuHideStyle{
