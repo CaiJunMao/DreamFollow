@@ -58,7 +58,8 @@
 				console.log(title, author, content)
 				this.$router.push({name:'poemDetail'})
 			}
-		}
+		},
+		
 	}
 </script>
 

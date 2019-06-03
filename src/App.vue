@@ -1,5 +1,5 @@
 <template>
-  <div id="app">
+  <div id="app" :class="font">
     <!--<HelloWorld msg="Welcome to Your Vue.js App"/>-->
   <!-- 使用动态的 transition name :name="transitionName"-->
     <div class="routerCss">
@@ -36,6 +36,12 @@ export default {
 	    flag: 0,
   	}
   },
+  computed:{
+  	font(){
+			return this.$store.state.font ?this.$store.state.font :'jn'
+//			return 'jn'
+  	}
+  },
   watch:{
   	'$route' (to, from) {
 	    const toDepth = to.path.split('/').length
@@ -58,7 +64,6 @@ export default {
 	    }
 	  }
   },
-  
 }
 </script>
 
@@ -72,16 +77,40 @@ export default {
 		height: 100%;
 	}
 @font-face {
-	font-family: 'fly';
+	font-family: 'fz';
+	src: url(font/肥宅快乐体.ttf);
+}
+@font-face {
+	font-family: 'hc';
 	src: url(font/火柴棒体.ttf);
 }
+@font-face {
+	font-family: 'jn';
+	src: url(font/江南手书.ttf);
+}
+@font-face {
+	font-family: 'xy';
+	src: url(font/行云飞白体.ttf);
+}
+.fz{
+	font-family: 'fz';
+}
+.hc{
+	font-family: 'hc';
+}
+.jn{
+	font-family: 'jn';
+}
+.xy{
+	font-family: 'xy';
+}
 #app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
+  /*font-family: 'Avenir', Helvetica, Arial, sans-serif;*/
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
-  font-family: 'fly';
+  /*font-family: 'hc';*/
   /*margin-top: 60px;*/
  	height: 100%;
  	/*设置路由铺满app*/

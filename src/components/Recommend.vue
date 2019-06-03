@@ -7,12 +7,12 @@
 			<i class="el-icon-refresh" @click="exchange"></i>
 		</div>
 		
-		<div class="tags" >
+		<div class="tags" v-if="tags" >
 			<!--<span v-for="(item, index) in tags" :key="index">{{item}}</span>-->
 			<span>{{tags[0]}}</span>
 			
 		</div>
-		<div class="text-box">
+		<div class="text-box"  v-if="content" >
 			<span>{{content}}</span>
 		</div>
 		<!--<div class="exchange">

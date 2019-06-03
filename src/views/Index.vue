@@ -11,7 +11,7 @@
 	  		<div class="">
 	  			
 	  		</div>
-	    	<PoemAbout :items="poetrys"></PoemAbout>
+	    	<PoemAbout :items="poetrys" v-if='poetrys'></PoemAbout>
 			</div>
 			<!--从目录返回时，盖在indexCss上面，防止点击到indexCss中子元素，触发其点击事件-->
 	    <div class="mask" v-show="showmask"  @click="hide">
@@ -39,6 +39,7 @@
 import Recommend from '@/components/Recommend.vue'
 import PoemAbout from '@/components/PoemAbout.vue'
 import TopBar from '@/components/TopBar.vue'
+import Request from '@/tools/Request.js'
 export default {
   name: 'index',
   components: {
@@ -58,7 +59,7 @@ export default {
       transitionName:null,
   	}
   },
-    methods:{
+   methods:{
       showMenu(){
         console.log("点击显示目录")
         this.$router.push({name:'menu'})
@@ -104,19 +105,48 @@ export default {
 	  }
   },
 
-   beforeRouteEnter(to, from, next){
-   	axios
-   		.get("https://api.apiopen.top/getSongPoetry?page=1&count=20")
-   		.then(res => {
-   			next(vm =>{
-   				vm.poetrys = res.data.result.slice(0, 20)
-   			})
-   		})
-   },
-created(){
-	//重置子路由遮罩，让其消失，避免首页无法点击
-//	this.routerStyle=''
-}
+// beforeRouteEnter(to, from, next){
+// 	axios
+// 		.get("https://api.apiopen.top/getSongPoetry?page=1&count=20")
+// 		.then(res => {
+// 			next(vm =>{
+// 				vm.poetrys = res.data.result.slice(0, 20)
+// 			})
+// 		})
+// },
+	created(){
+//		const Request = require("../tools/Request")
+		
+//		console.log("诗歌简介组件")
+		const request = new Request()
+		
+		request.http({
+			//根据关键词搜索内容
+		    url: "/api/v1/poetry/search",
+		    method: "GET",
+		    params: {
+		        keywords: "李白",
+		        type: "author",
+		        size: "100"
+		    }
+			//获取诗词详情
+//		     url: "/api/v1/poetry/detail/59dcbea4ee1d825331ff3432",
+//		    method: "GET"
+			//获取作者详情
+//			 url:"/api/v1/author/detail/59dca987bddaf83748e8904c",
+//			 method: "GET"
+			//获取作者相关诗词
+//				url:"/api/v1/author/poetryList/59dca987bddaf83748e8904c",
+//			 method: "GET",
+//			 params: {
+////		        page: "1",
+//		        size: "100"
+//		    }
+		  
+		}).then(function (response) {
+		    console.log(response.data)
+		})
+	},
 
 }
 </script>

@@ -8,7 +8,7 @@ export default new Router({
 	mode: 'history',
   routes: [
     {
-      path: '/',
+      path: '/index',
       name: 'index',
       component: Index,
       meta:{isIndex:true},
@@ -67,10 +67,6 @@ export default new Router({
       path: '/Collection',
       name: 'collection',
       component: () => import('./views/Collection.vue')
-    },
-    {
-    	path: '*',
-		  redirect: {name: 'index'}
     }
   ]
 })

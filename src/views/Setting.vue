@@ -17,7 +17,7 @@
          <template slot-scope="scope" >
 	        		<template v-if="scope.row.opsition=='字体选择'">
 	        			<!--选择器-->
-	        			 <el-select v-model="fontValue" >
+	        			 <el-select v-model="fontValue" @change="changeFont">
 							    <el-option
 							      v-for="item in fontOptions"
 							      :key="item.value"
@@ -70,17 +70,31 @@ export default {
   		 ],
   		 showHeader:false,
   		 fontOptions: [{
-          value: 'pt',
-          label: '普通'
+          value: 'fz',
+          label: '肥宅'
         }, 
         {
-          value: 'gf',
-          label: '古风'
-        }, 
+          value: 'hc',
+          label: '火柴'
+        },
+        {
+          value: 'jn',
+          label: '江南'
+        },
+        {
+          value: 'xy',
+          label: '行云'
+        },
        ],
-        fontValue: 'pt'
+        fontValue: 'jn'
   	}
-  }
+  },
+   methods: {
+   	changeFont(){
+   		console.log(this.fontValue)
+   		this.$store.commit('changeFont', this.fontValue)
+   	}
+   },
 }
 </script>
 <style lang="less" scoped>

@@ -8,7 +8,8 @@ export default new Vuex.Store({
   	title: null,
 	author: null,
 	content: null,
-	dynasty: null
+	dynasty: null,
+	font:null,
   },
   mutations: {
 	introductionPoem(state, poem){
@@ -22,6 +23,9 @@ export default new Vuex.Store({
 	introductionAuthor(state, author){
 		state.author = author
 	},
+	changeFont(state,font){
+		state.font = font
+	}
   },
   actions: {
 
