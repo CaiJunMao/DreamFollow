@@ -102,6 +102,12 @@ export default {
   name: 'v-filter',
   components: {
   },
+  data(){
+  	return{
+  		activeName: 'first'
+  	}
+  	
+  },
   methods: {
   	screenDynasty(dynasty){
   		this.$store.commit('introductionDynasty', dynasty)

@@ -1,5 +1,6 @@
 <template>
   <div class="poemDetail">
+  	<TopBar :title=name ></TopBar>
     <div class="nav">
     		<i class="el-icon-arrow-left" @click="$router.go(-1)"></i>
     		<i class="el-icon-star-off" @click="addCollection({title: title, authors: author, content: contents})"></i>
@@ -31,14 +32,16 @@
 
 <script>
 // @ is an alias to /src
-
+import TopBar from '@/components/TopBar.vue'
 export default {
   name: 'opemDetail',
   components: {
+  	TopBar
   },
   data(){
   	return{
-  		poems: []
+  		poems: [],
+  		name:'诗歌详情'
   	}
   },
   computed: {
@@ -86,7 +89,7 @@ export default {
 <style lang="less" scoped>
 	.poemDetail{
 		height: 100%;
-		background-image: url(../../img/BFACB745EA60D2AFE07CFE6B9C51580D.png);
+		background-image: url(../../img/detail.png);
 		background-size: 100% 100%;
 		.nav{
 			i:nth-of-type(1){

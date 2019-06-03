@@ -4,10 +4,14 @@
   	<div class = "indexCss" :class="{indexCssForMenu:routerStyle=='menuStyle','indexCssFirst':routerStyle==''}">
   		<TopBar :title=name :menuShow="showMenu" :filterShow="showFilter"></TopBar>
 	    <!--<el-button @click.stop="showFilter" >筛选</el-button>-->
-			<div>
-				<el-button @click="$router.push({name:'poemSearch'})">搜索</el-button>
+			<div class="main">
+				<div class="search" @click="$router.push({name:'poemSearch'})"><i class="el-icon-search"></i>点击进行搜索</div>
+				<!--<el-button @click="$router.push({name:'poemSearch'})">搜索</el-button>-->
 	  		<Recommend></Recommend>
-	    	<PoemAbout :items="poetrys"></PoemAbout>
+	  		<div class="">
+	  			
+	  		</div>
+	    	<PoemAbout :items="poetrys" v-if='poetrys'></PoemAbout>
 			</div>
 			<!--从目录返回时，盖在indexCss上面，防止点击到indexCss中子元素，触发其点击事件-->
 	    <div class="mask" v-show="showmask"  @click="hide">
@@ -35,6 +39,7 @@
 import Recommend from '@/components/Recommend.vue'
 import PoemAbout from '@/components/PoemAbout.vue'
 import TopBar from '@/components/TopBar.vue'
+import Request from '@/tools/Request.js'
 export default {
   name: 'index',
   components: {
@@ -54,7 +59,7 @@ export default {
       transitionName:null,
   	}
   },
-    methods:{
+   methods:{
       showMenu(){
         console.log("点击显示目录")
         this.$router.push({name:'menu'})
@@ -100,19 +105,48 @@ export default {
 	  }
   },
 
-   beforeRouteEnter(to, from, next){
-   	axios
-   		.get("https://api.apiopen.top/getSongPoetry?page=1&count=20")
-   		.then(res => {
-   			next(vm =>{
-   				vm.poetrys = res.data.result.slice(0, 20)
-   			})
-   		})
-   },
-created(){
-	//重置子路由遮罩，让其消失，避免首页无法点击
-//	this.routerStyle=''
-}
+// beforeRouteEnter(to, from, next){
+// 	axios
+// 		.get("https://api.apiopen.top/getSongPoetry?page=1&count=20")
+// 		.then(res => {
+// 			next(vm =>{
+// 				vm.poetrys = res.data.result.slice(0, 20)
+// 			})
+// 		})
+// },
+	created(){
+//		const Request = require("../tools/Request")
+		
+//		console.log("诗歌简介组件")
+		const request = new Request()
+		
+		request.http({
+			//根据关键词搜索内容
+		    url: "/api/v1/poetry/search",
+		    method: "GET",
+		    params: {
+		        keywords: "李白",
+		        type: "author",
+		        size: "100"
+		    }
+			//获取诗词详情
+//		     url: "/api/v1/poetry/detail/59dcbea4ee1d825331ff3432",
+//		    method: "GET"
+			//获取作者详情
+//			 url:"/api/v1/author/detail/59dca987bddaf83748e8904c",
+//			 method: "GET"
+			//获取作者相关诗词
+//				url:"/api/v1/author/poetryList/59dca987bddaf83748e8904c",
+//			 method: "GET",
+//			 params: {
+////		        page: "1",
+//		        size: "100"
+//		    }
+		  
+		}).then(function (response) {
+		    console.log(response.data)
+		})
+	},
 
 }
 </script>
@@ -121,19 +155,34 @@ created(){
 	.index{
 		height: 100%;
 		position: relative;
-		
+		background-image: url(../../img/QQ20190530-1.jpg);
+		background-size: 100% 100%;
 		.secondRouter{
 			display: flex;
 		}
 		.indexCss{
 			transition: all 1s ease-in; 
 			height: 100%;
-			.mask{
-				position: absolute;
-				height: 100%;
-				width: 100%;
-				top: 0;
+			/*background-image: url(../../img/index.png);*/
+			/*background-size: 100% 100%;*/
+			.main{
+				height:92%;
+				overflow:overlay;
+				
+				.search{
+					display:block;
+					height:30px;
+					line-height: 30px;
+					background-color: #999 0.2;
+				}
 			}
+			.mask{
+					position: absolute;
+					height: 100%;
+					width: 100%;
+					top: 0;
+					z-index: 6;
+				}
 		}
 		.indexCssFirst{
 			/*background: blueviolet;*/
@@ -165,6 +214,7 @@ created(){
 		height: 100%;
 		width: 100%;
 		transform: scale(0.9, 0.9);
+		z-index: 2;
 	}
 	
 	.menuHideStyle{

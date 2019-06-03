@@ -4,7 +4,7 @@
    <div @click="$router.push({name:'write'})">题诗</div>
    <div @click="$router.push({name:'collection'})">收藏</div>
    <div @click="$router.push({name:'setting'})">设置</div>
-   <div @click="$router.push({name:'opemSearch'})">搜索</div>
+   <div @click="$router.push({name:'poemSearch'})">搜索</div>
 
   </div>
 </template>
