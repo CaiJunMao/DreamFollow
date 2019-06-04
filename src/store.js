@@ -6,7 +6,7 @@ Vue.use(Vuex)
 export default new Vuex.Store({
   state: {
   	title: null,
-	author: null,
+	sort: null,
 	content: null,
 	dynasty: null,
 	font:null,
@@ -15,11 +15,12 @@ export default new Vuex.Store({
   mutations: {
 	introductionPoem(state, poem){
 		state.title = poem.title
+		state.dynasty = poem.dynasty
 		state.author = poem.author
 		state.content = poem.content
 	},
-	introductionDynasty(state, dynasty){
-		state.dynasty = dynasty
+	introductionSort(state, sort){
+		state.sort = sort
 	},
 	introductionAuthor(state, author){
 		state.author = author
