@@ -9,7 +9,7 @@
 		
 		<div class="tags" v-if="tags" >
 			<!--<span v-for="(item, index) in tags" :key="index">{{item}}</span>-->
-			<span>{{tags[0]}}</span>
+			<span >{{tags[0]}}</span>
 			
 		</div>
 		<div class="text-box"  v-if="content" >
@@ -18,17 +18,25 @@
 		<!--<div class="exchange">
 			<a class="btn" @click="exchange">换一句</a>
 		</div>-->
+		<!--<PoemAbout :items="poetrys" v-if='poetrys'></PoemAbout>-->
 	</div>
 </template>
 
 <script>
+	import Request from '@/tools/Request.js'
+	import PoemAbout from '@/components/PoemAbout.vue'
 	export default{
 		name: 'recommend',
 		data(){
 			return{
 				content: null, //随机推荐的诗句
 				tags: null, //推荐诗句的标签
+				poetrys:null,
+				tag:null
 			}
+		},
+		components: {
+			PoemAbout,
 		},
 		methods: {
 			//封装axios请求，当用户点击“换一句”按钮的时候重复请求
@@ -38,15 +46,43 @@
 					.then(res => {
 						this.content = res.data.data.content
 						this.tags = res.data.data.matchTags
+						this.getSimilarByTag(this.tags[0])
+//						this.setTagToIndex(this.tags[0])
+//						console.log(this.$store.state.tag)
 					})
 			},
 			//点击“换一句”按钮
 			exchange(){
 				this.getaxios()
-			}
+			},
+			getSimilarByTag(tag){
+				const request = new Request()
+				var query={
+						url: "/api/v1/poetry/search",
+						method: "GET",
+						
+						params: {
+							keywords: tag,
+							type: "text ",
+							size: "100"
+						}
+					}
+				var that =this
+				request.http(query).then(function(response) {
+//					console.log(response.data)
+					that.poetrys = response.data.resp.textList.data
+					console.log(that.poetrys)
+				})
+			},
+				
+//			setTagToIndex(tag){
+//				this.$store.commit('getCommentTag', tag)
+//			}
 		},
 		created(){
 			this.getaxios()
+			
+		
 		}
 	}
 </script>
@@ -74,14 +110,20 @@
 	}
 	
 	.top{
-		height: 20%;
+		height: 16%;
 		display: flex;
 		justify-content: space-between;
+		span{
+			margin: 2%;
+			}
+		i{
+			margin: 2%;
+		}
 	}
 	.tags{
 		display: flex;
 		justify-content: space-around;
-		height: 55%;
+		height: 54%;
 		span{
 			display: inline-block;
 			/*height: 25px;*/
@@ -93,10 +135,12 @@
 		}
 	}
 	.text-box{
+		margin-top: 5%;
 		height: 20%;
-		padding:5% 0 ;
+		/*padding:5% 0 ;*/
 		font-size: 20px;
 		line-height: 20px;
+		text-align: center;
 	}
 }
 </style>

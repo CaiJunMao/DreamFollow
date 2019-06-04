@@ -6,7 +6,7 @@
 		<i class="el-icon-arrow-left" v-else @click="$router.go(-1)"></i>
 		<div class="title" >{{title}}</div>
 		<!--<el-button type="primary" icon="el-icon-edit"></el-button>-->
-		<el-button type="text" @click.stop='filterShow'  v-if="$route.meta.isIndex" style="color: #666666;font-size: 15px;font-weight: 600;">筛选</el-button>
+		<i @click.stop='filterShow'  v-if="$route.meta.isIndex" style="font: inherit">筛选</i>
 	</div>
 </template>
 
@@ -29,11 +29,11 @@
 		height: 8%;
 		font-size: 25px;
 		i{
-			width: 10%;
+			width: 20%;
 			display: inline;
 		}
 		.title{
-			width: 80%;
+			width: 60%;
 			text-align: center;
 		}
 	}
