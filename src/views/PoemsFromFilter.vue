@@ -1,16 +1,16 @@
 <template>
   <div class="poemsFromFilter">
     <TopBar :title=name ></TopBar>
-    <div class="poet" v-if="author">
+    <!--<div class="poet" v-if="author">
     		<div class="author">
     			<span>{{authorIntroduce.name}}</span>
     		</div>
     		<div class="introduce">
-    			<div>{{authorIntroduce.desc}}</div>
+    			<div>{{authorIntroduce.resume}}</div>
     		</div>
-    </div>
-    <PoemAbout :items="dynasty" v-if="dynasty"></PoemAbout>
-    <PoemAbout :items="poemOfPoet" v-if="poemOfPoet"></PoemAbout>
+    </div>-->
+    <PoemAbout :items="sort" v-if="sort"></PoemAbout>
+    <!--<PoemAbout :items="poemOfPoet" v-if="author"></PoemAbout>-->
   </div>
 </template>
 
@@ -18,6 +18,7 @@
 // @ is an alias to /src
 import PoemAbout from '@/components/PoemAbout.vue'
 import TopBar from '@/components/TopBar.vue'
+import Request from '@/tools/Request.js'
 export default {
   name: 'OpemsFromFilter',
   components: {
@@ -28,48 +29,67 @@ export default {
   	return{
   		authorIntroduce: null,
   		poemOfPoet: [],
-  		dynastyTang: null,
-  		dynastySong: null,
+  		sort1: null,
+  		sortflag: 1,//控制请求只执行一次
+  		authorid: null,//存储请求到的作者的id
+  		authorflag: 1,
   		name:'筛选结果'
   	}
   },
   computed: {
-  		dynasty(){
-  			if(this.$store.state.dynasty == '唐朝'){
-	  			axios
-			  		.get("https://api.apiopen.top/getTangPoetry?count=100")
-			  		.then(res => {
-			  			this.dynastyTang = res.data.result
-			  		})
-		  		return this.dynastyTang
-	  		}else if(this.$store.state.dynasty == '宋朝'){
-	  			axios
-		  		.get("https://api.apiopen.top/getSongPoetry?count=100")
-		  		.then(res => {
-		  			this.dynastySong = res.data.result
-		  		})
-		  		return this.dynastySong
-	  		}
+  		sort(){
+  			if(this.$store.state.sort && this.sortflag){
+  				this.sortflag = 0
+  				const request = new Request()
+  				request.http({
+  					 url: "/api/v1/poetry/search",
+  					 method: "GET",
+  					 params: {
+				        keywords: this.$store.state.sort,
+				        type: "text",
+				        size: "15"
+				    }
+  				})
+  				.then(res => {
+  					this.sort1 = res.data.resp.data
+  				})
+  				
+  			}
+  			return this.sort1
   		},
 	  	author(){
-	  		if(this.$store.state.author){
-	  			axios
-		  			.get('https://api.apiopen.top/searchAuthors?name=' + this.$store.state.author)
-		  			.then(res => {
-		  				this.authorIntroduce = res.data.result[0]
-		  			})
-		  		axios
-		  			.get("https://api.apiopen.top/likePoetry?name=" + this.$store.state.author)
-		  			.then(res => {
-		  				res.data.result.forEach((ele, index) => {
-		  					if(ele.authors == this.$store.state.author){
-								this.poemOfPoet.push(ele)
-		  					}
-		  				})
-		  			})
+	  		if(this.$store.state.author && this.authorflag){
+	  			this.authorflag = 0
+	  			const request = new Request()
+  				request.http({
+  					 url: "/api/v1/poetry/search",
+  					 method: "GET",
+  					 params: {
+				        keywords: this.$store.state.author,
+				        type: "author",
+				        size: "15"
+				    }
+  				})
+  				.then(res => {
+  					this.poemOfPoet = res.data.resp.data
+//					this.authorid = res.data.resp.data[0].author._id
+  				})
+//		  		if(this.authorid){
+//		  			const request = new Request()
+//	  				request.http({
+//	  					 url: "/api/v1/author/detail",
+//	  					 method: "GET",
+//	  					 params: {
+//					        authorId: '59dca987bddaf83748e8904c'
+//					    }
+//	  				})
+//	  				.then(res => {
+//	  					this.authorIntroduce = res.data.resp
+//	  				})
+//		  		}
 	  		}
 	  		
-	  		if(this.authorIntroduce && this.poemOfPoet)
+	  		if(this.poemOfPoet)
 	  			return true
 	  		else	
 	  			return false
@@ -77,4 +97,14 @@ export default {
   	},
   }
 </script>
+
+<style lang="less" scoped>
+	.poemsFromFilter{
+		height: 100%;
+		.poemAbout{
+			height: 86%;
+			overflow: scroll;
+		}
+	}
+</style>
 

@@ -2,23 +2,7 @@
   <div class="filter">
     <i class="el-icon-error"  @click="$router.go(-1)"></i>
 	<el-tabs v-model="activeName" tab-position="left">
-	    <el-tab-pane label="朝代" name="first">
-	    		<ul>
-	    			<li>先秦</li>
-	    			<li>两汉</li>
-	    			<li>魏晋</li>
-	    			<li>南北朝</li>
-	    			<li>隋代</li>
-	    			<li @click="screenDynasty('唐朝')">唐代</li>
-	    			<li>五代</li>
-	    			<li @click="screenDynasty('宋朝')">宋代</li>
-	    			<li>金朝</li>
-	    			<li>元代</li>
-	    			<li>明代</li>
-	    			<li>清代</li>
-	    		</ul>
-	    </el-tab-pane>
-	    <el-tab-pane label="作者" name="second">
+	    <el-tab-pane label="作者" name="first">
 	    		<ul>
 	    			<li @click="screenAuthor('李白')">李白</li>
 	    			<li @click="screenAuthor('杜甫')">杜甫</li>
@@ -32,21 +16,21 @@
 	    			<li @click="screenAuthor('高骈')">高骈</li>
 	    		</ul>
 	    </el-tab-pane>
-	    <el-tab-pane label="类型" name="third">
+	    <el-tab-pane label="类型" name="second">
 	    		<ul>
-	    			<li>写景</li>
-	    			<li>咏物</li>
-	    			<li>春天</li>
-	    			<li>夏天</li>
-	    			<li>秋天</li>
-	    			<li>冬天</li>
-	    			<li>写雨</li>
-	    			<li>写雪</li>
-	    			<li>写风</li>
-	    			<li>写花</li>
+	    			<li @click="screenSort('写景')">写景</li>
+	    			<li @click="screenSort('咏物')">咏物</li>
+	    			<li @click="screenSort('春天')">春天</li>
+	    			<li @click="screenSort('夏天')">夏天</li>
+	    			<li @click="screenSort('秋天')">秋天</li>
+	    			<li @click="screenSort('冬天')">冬天</li>
+	    			<li @click="screenSort('写雨')">写雨</li>
+	    			<li @click="screenSort('写雪')">写雪</li>
+	    			<li @click="screenSort('写风')">写风</li>
+	    			<li @click="screenSort('写花')">写花</li>
 	    		</ul>
 	    </el-tab-pane>
-	    <el-tab-pane label="诗集" name="fourth">
+	    <el-tab-pane label="诗集" name="third">
 	    		<ul>
 	    			<li>唐诗三百首</li>
 	    			<li>古诗三百首</li>
@@ -60,7 +44,7 @@
 	    			<li>金元曲</li>
 	    		</ul>
 	    </el-tab-pane>
-	    <el-tab-pane label="教材" name="fifth">
+	    <el-tab-pane label="教材" name="fourth">
 	    		<ul>
 	    			<li>小学一年级上册</li>
 	    			<li>小学一年级下册</li>
@@ -75,23 +59,6 @@
 	    		</ul>
 	    </el-tab-pane>
 	</el-tabs>
-    <!--<dl>
-    		<dt>朝代</dt>
-    		<dd @click="screenDynasty('先秦')">先秦</dd>
-    		<dd @click="screenDynasty('两汉')">两汉</dd>
-    		<dd @click="screenDynasty('唐朝')">唐朝</dd>
-    		<dd @click="screenDynasty('宋朝')">宋朝</dd>
-    </dl>
-    <dl>
-    		<dt>作者</dt>
-    		<dd @click="screenAuthor('苏轼')">苏轼</dd>
-    		<dd @click="screenAuthor('杜牧')">杜牧</dd>
-    		<dd @click="screenAuthor('李清照')">李清照</dd>
-    		<dd @click="screenAuthor('李商隐')">李商隐</dd>
-    </dl>
-    <el-button @click="$router.go(-1)" >返回</el-button>-->
-
-
   </div>
 </template>
 
@@ -109,8 +76,8 @@ export default {
   	
   },
   methods: {
-  	screenDynasty(dynasty){
-  		this.$store.commit('introductionDynasty', dynasty)
+  	screenSort(sort){
+  		this.$store.commit('introductionSort', sort)
   		this.$router.push({name:'poemsFromFilter'})
   	},
   	screenAuthor(author){
