@@ -67,6 +67,10 @@ export default new Router({
       path: '/Collection',
       name: 'collection',
       component: () => import('./views/Collection.vue')
-    }
+    },
+     {
+      path: '*',
+      redirect:{name:'index'}
+    },
   ]
 })

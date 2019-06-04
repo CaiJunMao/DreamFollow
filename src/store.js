@@ -10,6 +10,7 @@ export default new Vuex.Store({
 	content: null,
 	dynasty: null,
 	font:null,
+
   },
   mutations: {
 	introductionPoem(state, poem){
@@ -25,7 +26,8 @@ export default new Vuex.Store({
 	},
 	changeFont(state,font){
 		state.font = font
-	}
+	},
+	
   },
   actions: {
 
