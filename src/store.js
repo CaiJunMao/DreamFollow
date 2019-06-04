@@ -10,7 +10,7 @@ export default new Vuex.Store({
 	content: null,
 	dynasty: null,
 	font:null,
-
+	author:null,
   },
   mutations: {
 	introductionPoem(state, poem){

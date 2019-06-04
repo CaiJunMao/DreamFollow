@@ -18,7 +18,7 @@
 		<!--<div class="exchange">
 			<a class="btn" @click="exchange">换一句</a>
 		</div>-->
-		<!--<PoemAbout :items="poetrys" v-if='poetrys'></PoemAbout>-->
+		<PoemAbout :items="poetrys" v-if='poetrys'></PoemAbout>
 	</div>
 </template>
 
@@ -63,15 +63,15 @@
 						
 						params: {
 							keywords: tag,
-							type: "text ",
+							type: "text",
 							size: "100"
 						}
 					}
 				var that =this
 				request.http(query).then(function(response) {
-//					console.log(response.data)
-					that.poetrys = response.data.resp.textList.data
-					console.log(that.poetrys)
+					console.log(response.data)
+					that.poetrys = response.data.resp.data
+					console.log(response.data)
 				})
 			},
 				
