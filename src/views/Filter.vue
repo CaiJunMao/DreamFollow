@@ -84,7 +84,7 @@ export default {
   		this.$store.commit('introductionAuthor', author)
   		this.$router.push({name:'poemsFromFilter'})
   	}
-  }
+  },
 }
 </script>
 <style lang="less">
