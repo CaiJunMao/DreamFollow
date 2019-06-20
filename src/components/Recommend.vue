@@ -1,7 +1,7 @@
 <template>
 	<div class="recommend">
 		<!--背景遮罩-->
-		<div class="mask"></div>
+		<div class="mask" ></div>
 		<div class="top">
 			<span>随机推荐</span>
 			<i class="el-icon-refresh" @click="exchange"></i>
@@ -18,7 +18,8 @@
 		<!--<div class="exchange">
 			<a class="btn" @click="exchange">换一句</a>
 		</div>-->
-		<!--<PoemAbout :items="poetrys" v-if='poetrys'></PoemAbout>-->
+		<PoemAbout :items="poetrys" v-if='poetrys' ></PoemAbout>
+
 	</div>
 </template>
 
@@ -32,7 +33,8 @@
 				content: null, //随机推荐的诗句
 				tags: null, //推荐诗句的标签
 				poetrys:null,
-				tag:null
+				tag:null,
+                loading:true
 			}
 		},
 		components: {
@@ -63,15 +65,17 @@
 						
 						params: {
 							keywords: tag,
-							type: "text ",
+							type: "text",
 							size: "100"
 						}
 					}
 				var that =this
+                this.loading = true
 				request.http(query).then(function(response) {
-//					console.log(response.data)
-					that.poetrys = response.data.resp.textList.data
-					console.log(that.poetrys)
+					console.log(response.data)
+					that.poetrys = response.data.resp.data
+                    this.loading = false
+					// console.log(response.data)
 				})
 			},
 				

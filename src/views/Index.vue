@@ -52,6 +52,7 @@
 				filterStyle: false,
 				routerStyle: '',
 				transitionName: null,
+
 				//推荐页通过vuex传过来keyword,用于显示相识推荐
 			}
 		},
