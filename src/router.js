@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import Index from './views/Index.vue'
+import Collection from './views/Collection.vue'
 
 Vue.use(Router)
 
@@ -66,7 +67,7 @@ export default new Router({
     {
       path: '/Collection',
       name: 'collection',
-      component: () => import('./views/Collection.vue')
+      component: Collection
     },
      {
       path: '*',
