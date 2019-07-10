@@ -3,10 +3,11 @@
   	<!--<TopBar :title=name ></TopBar>-->
     <div class="nav">
     		<i class="el-icon-arrow-left" @click="$router.go(-1)"></i>
-    		<i class="el-icon-star-off" @click="addCollection({title: title, dynastyText: dynasty, author: {name: author}, straightMatter: contents})"></i>
+    		<i v-if="collectState" class="el-icon-star-on" @click="addCollection({title: title, dynastyText: dynasty, author: {name: author}, straightMatter: straightMatter})"></i>
+    		<i v-else class="el-icon-star-off" @click="addCollection({title: title, dynastyText: dynasty, author: {name: author}, straightMatter: straightMatter})"></i>
     </div>
     <div class="contents">
-    		<div class="poetabout">
+    	<div class="poetabout">
 	    		<span>{{title}}</span>
 	    </div>
 	    <div class="dynasty">
@@ -34,7 +35,8 @@ export default {
   data(){
   	return{
   		poems: [],
-  		name:'诗歌详情'
+  		name:'诗歌详情',
+			collectState: null
   	}
   },
   computed: {
@@ -66,26 +68,48 @@ export default {
 		}
   		return poemArray
   	},
+		straightMatter(){//保证数据一致，将未处理前的数据存入localstorage
+			return this.$store.state.content
+		}
   },
   methods:{
   	//添加收藏，传入诗，
   	addCollection(poem){
-  		var flag
-  		if(localStorage.getItem("poemshelf")){
-  			JSON.parse(localStorage.getItem("poemshelf")).forEach((ele, index) => {
-  				if(ele.straightMatter[0] == poem.straightMatter[0])
-  					flag = 1
+  		let flag//flag变量识别localstorage中是否已经存在本首诗
+  		if(localStorage.getItem("poemshelf")){//判断该用户是否收藏过诗
+			this.poems = JSON.parse(localStorage.getItem("poemshelf"))
+  			this.poems.forEach((ele, index) => {
+  				if(ele.straightMatter === poem.straightMatter){//如果用户已经收藏过该诗，则，将该诗移除收藏
+							flag = 1
+							this.collectState = null//更改星星的形状为未收藏
+							this.poems.splice(index, 1)//移除本首诗
+						}
   			})
-  			if(flag != 1){
-  				this.poems.push(poem)
+  			if(flag !== 1){//如果用户没有收藏过本首诗，则将本首诗添加至收藏夹
+					this.collectState = poem.collect//更改星星的形状为已收藏
+  				this.poems.push(poem)//添加诗
   			}
-  		}else{
-  			this.poems.push(poem)
+  		}else{//该用户没有收藏过诗，则将本首诗收藏进去
+				this.collectState = poem.collect//更改星星的形状为已收藏
+  			this.poems.push(poem)//添加诗
   		}
-        localStorage.setItem('poemshelf',JSON.stringify(this.poems))
+      localStorage.setItem('poemshelf',JSON.stringify(this.poems))
   	}
   	
   },
+	beforeRouteEnter(to, from, next) {//判断用户是否收藏该诗
+			next(vm => {
+				vm.collectState = null//首先将星星的状态调整为未收藏
+				if(localStorage.getItem("poemshelf")){//如果用户有收藏诗才进行判断
+					vm.poems = JSON.parse(localStorage.getItem("poemshelf"))
+					vm.poems.forEach((ele, index) => {//循环遍历localstorage，查看用户是否有收藏本诗
+						if(vm.straightMatter === ele.straightMatter){
+							vm.collectState = 'true'//ok，用户有收藏本诗，将星星的形状变为已收藏
+						}
+					})
+				}
+			})
+	},
 }
 </script>
 <style lang="less" scoped>

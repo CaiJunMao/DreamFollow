@@ -19,28 +19,6 @@
 			</div>
 
 		</div>
-		<!--<div class="box" >
-			<div class="title">
-				长歌行
-			</div>
-			<div class="author">
-				/两汉/佚名
-			</div>
-			<div class="content">
-				青青园中葵，朝霞待日晞
-			</div>
-		</div>
-		<div class="box" >
-			<div class="title">
-				长歌行
-			</div>
-			<div class="author">
-				/两汉/佚名
-			</div>
-			<div class="content">
-				青青园中葵，朝霞待日晞
-			</div>
-		</div>-->
 	</div>
 </template>
 
