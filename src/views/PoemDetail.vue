@@ -86,11 +86,11 @@ export default {
 						}
   			})
   			if(flag !== 1){//如果用户没有收藏过本首诗，则将本首诗添加至收藏夹
-					this.collectState = poem.collect//更改星星的形状为已收藏
+				this.collectState = true//更改星星的形状为已收藏
   				this.poems.push(poem)//添加诗
   			}
   		}else{//该用户没有收藏过诗，则将本首诗收藏进去
-				this.collectState = poem.collect//更改星星的形状为已收藏
+				this.collectState = true//更改星星的形状为已收藏
   			this.poems.push(poem)//添加诗
   		}
       localStorage.setItem('poemshelf',JSON.stringify(this.poems))
