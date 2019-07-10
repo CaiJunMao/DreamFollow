@@ -74,7 +74,7 @@
 				request.http(query).then(function(response) {
 					console.log(response.data)
 					that.poetrys = response.data.resp.data
-                    this.loading = false
+                    that.loading = false
 					// console.log(response.data)
 				})
 			},
